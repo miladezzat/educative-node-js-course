@@ -11,5 +11,15 @@
         "ecmaVersion": 13
     },
     "rules": {
+        "max-len": [
+            "error",
+            {
+                "code": 144,
+                "ignoreComments": true
+            }
+        ],
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "no-bitwise": "off"
     }
 }
