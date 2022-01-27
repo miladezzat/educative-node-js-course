@@ -1,3 +1,3 @@
 module.exports = {
-    appPort: process.env.PORT
+  appPort: process.env.PORT,
 };
