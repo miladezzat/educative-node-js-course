@@ -6,7 +6,7 @@ const validationMiddleware = require('../middleware/validation');
 
 const router = new express.Router();
 
-router.get('/', checkAuth, async (req, res) => {
+router.get('/', checkAuth, validationMiddleware(userValidation.getUsersValidator), async (req, res) => {
   const users = await userService.get(req.query);
 
   res.status(200).send({ users });

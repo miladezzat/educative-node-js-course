@@ -79,7 +79,42 @@ const loginValidationSchema = {
   ],
 };
 
+const getUsersValidationSchema = {
+  // this is the query string json schema to validate the query request only
+  querySchema: [{
+    $id: '/schemas/educative.io/users/login/body',
+    type: 'object',
+
+    properties: {
+      page: {
+        type: 'number',
+        default: 1,
+        minimum: 1,
+      },
+
+      limit: {
+        type: 'number',
+        minimum: 1,
+        maximum: 100,
+        default: 10,
+      },
+
+      sortBy: {
+        type: 'string',
+        default: 'createdAt',
+      },
+
+      order: {
+        type: 'number',
+        default: -1,
+        enum: [-1, 1],
+      },
+    },
+  }],
+};
+
 module.exports = {
   registrationValidator: createValidator(registrationValidationSchema),
   loginValidator: createValidator(loginValidationSchema),
+  getUsersValidator: createValidator(getUsersValidationSchema),
 };

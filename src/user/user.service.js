@@ -75,8 +75,8 @@ class UserService {
 
     return this.model.find({ isDeleted: false })
       .sort({ [sortBy]: order })
-      .skip(+page * +limit - +limit)
-      .limit(+limit)
+      .skip(page * limit - limit)
+      .limit(limit)
       .lean();
   }
 }
