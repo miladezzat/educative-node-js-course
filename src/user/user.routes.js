@@ -4,6 +4,12 @@ const checkAuth = require('../middleware/check-auth.middleware');
 
 const router = new express.Router();
 
+router.get('/', checkAuth, async (req, res) => {
+  const users = await userService.get(req.query);
+
+  res.status(200).send({ users });
+});
+
 router.post('/register', async (req, res) => {
   const user = await userService.register(req.body);
 

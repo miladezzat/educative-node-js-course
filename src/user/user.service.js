@@ -54,6 +54,30 @@ class UserService {
 
     return { ..._.omit(user, ['password']), token };
   }
+
+  /**
+   * @param {Object} args
+   * @param {Number} args.page
+   * @param {Number} args.limit
+   * @param {String} args.sortBy
+   * @param {Number} args.order
+   *
+   * @return {Promise<Array<Object>>}
+   */
+  get(args) {
+    const {
+      page = 1,
+      limit = 10,
+      sortBy = 'createdAt',
+      order = 'asc',
+    } = args;
+
+    return this.model.find({ isDeleted: false })
+      .sort({ [sortBy]: order })
+      .skip(+page * +limit - +limit)
+      .limit(+limit)
+      .lean();
+  }
 }
 
 module.exports = new UserService();
