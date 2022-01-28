@@ -18,7 +18,7 @@ router.post('/register', validationMiddleware(userValidation.registrationValidat
   res.status(200).send({ user });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', validationMiddleware(userValidation.loginValidator), async (req, res) => {
   const user = await userService.login(req.body);
   res.status(200).send({ user });
 });

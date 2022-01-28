@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { Errors: { ConflictError } } = require('error-handler-e2');
+const { Errors: { ConflictError, NotFoundError, BadRequestError } } = require('error-handler-e2');
 const { hashPassword, compareHashedPassword } = require('../helper/password');
 const { createToken } = require('../helper/token');
 const UserModel = require('./user.schema');
@@ -42,13 +42,13 @@ class UserService {
     const user = await this.getByEmail(email);
 
     if (!user) {
-      throw new Error('User not exists');
+      throw new NotFoundError('User not exists', { email: 'User not exists' });
     }
 
     const passwordIsMatch = await compareHashedPassword(password, user.password);
 
     if (!passwordIsMatch) {
-      throw new Error('Password not correct');
+      throw new BadRequestError('Password not correct', { password: 'Password not correct' });
     }
 
     const token = createToken(_.omit(user, ['password']));
