@@ -1,5 +1,6 @@
 const path = require('path');
 const sharp = require('sharp');
+const { Errors: { BadRequestError } } = require('error-handler-e2');
 const { EXTENSIONS } = require('./upload-images.constants');
 const { appHost } = require('../../config/app.config');
 
@@ -19,7 +20,7 @@ class UploadImages {
     const resizeOptions = {};
 
     if (imageFormat && !EXTENSIONS.includes(imageFormat)) {
-      throw new Error('Error');
+      throw new BadRequestError('Image format not allowed', { image: 'image format not allowed' });
     }
 
     if (imageWidth) {

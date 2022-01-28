@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { Errors: { ConflictError } } = require('error-handler-e2');
 const { hashPassword, compareHashedPassword } = require('../helper/password');
 const { createToken } = require('../helper/token');
 const UserModel = require('./user.schema');
@@ -18,7 +19,7 @@ class UserService {
     const user = await this.getByEmail(email);
 
     if (user) {
-      throw new Error('User already exists');
+      throw new ConflictError('User already exists', { email: 'User already exists' });
     }
 
     const hashedPassword = await hashPassword(password);

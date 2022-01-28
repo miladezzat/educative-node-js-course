@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+const { Errors: { BadRequestError } } = require('error-handler-e2');
 
 const createMulter = (extensions = [], message = '') => multer({
   storage: multer.memoryStorage(),
@@ -7,7 +8,7 @@ const createMulter = (extensions = [], message = '') => multer({
     const ext = path.extname(file.originalname);
 
     if (!extensions.includes(ext.toLowerCase())) {
-      req.error = new Error(message);
+      req.error = new BadRequestError(message, { extension: ext.toLowerCase() });
     }
 
     callback(null, true);

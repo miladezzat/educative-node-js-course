@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { Errors: { BadRequestError } } = require('error-handler-e2');
 
 const validation = (validators = {}) => async (req, res, next) => {
   try {
@@ -21,7 +22,7 @@ const validation = (validators = {}) => async (req, res, next) => {
 
     next();
   } catch (error) {
-    throw new Error('Data Validation Error');
+    throw new BadRequestError('Data Validation Error', { error });
   }
 };
 

@@ -1,11 +1,12 @@
 const Ajv = require('ajv').default;
 const _ = require('lodash');
+const { Errors: { BadRequestError } } = require('error-handler-e2');
 const { config, configureAjv } = require('../../config/ajv.config');
 
 class SchemaValidator {
   constructor(schema) {
     if (_.isNil(schema) || _.isEmpty(schema)) {
-      throw new Error('missing or invalid dependencies');
+      throw new BadRequestError('missing or invalid dependencies');
     }
     this.schemas = schema;
     this.ajvValidate = null;
@@ -18,7 +19,7 @@ class SchemaValidator {
       return Promise.resolve(doc);
     }
 
-    const errorObject = new Error('invalid object');
+    const errorObject = new BadRequestError('invalid object');
     errorObject.details = this._formatErrors(this.ajvValidate.errors);
 
     return Promise.reject(errorObject);

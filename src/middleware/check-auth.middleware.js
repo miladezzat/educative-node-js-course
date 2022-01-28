@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const { Errors: { UnAuthorizedError } } = require('error-handler-e2');
 const { tokenPublicSecreteKey, tokenSignOptions } = require('../../config/app.config');
 
 const checkAuth = (req, res, next) => {
   const token = req.header('x-auth-token') || req.header('token');
 
   if (!token) {
-    throw new Error('authorization denied');
+    throw new UnAuthorizedError('authorization denied');
   }
 
   try {
@@ -13,7 +14,7 @@ const checkAuth = (req, res, next) => {
 
     next();
   } catch (error) {
-    throw new Error('authorization denied');
+    throw new UnAuthorizedError('authorization denied');
   }
 };
 module.exports = checkAuth;
