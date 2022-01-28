@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { appHost } = require('../../config/app-config');
+const { appHost } = require('../../config/app.config');
 
 class UploadImages {
   constructor() {

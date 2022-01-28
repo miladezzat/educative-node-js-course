@@ -1,7 +1,7 @@
 const path = require('path');
 const sharp = require('sharp');
 const { EXTENSIONS } = require('./upload-images.constants');
-const { appHost } = require('../../config/app-config');
+const { appHost } = require('../../config/app.config');
 
 class UploadImages {
   constructor() {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { databaseUrl, databaseAuth } = require('./config/app-config');
+const { databaseUrl, databaseAuth } = require('./config/app.config');
 
 const connectToDB = async () => {
   mongoose.Promise = global.Promise;
